@@ -1,0 +1,23 @@
+QUICK SETUP_GUIDE
+
+*Download Xampp server.
+
+*Download & install java version "1.8.0_251" & MySQL in your pc
+
+*Download Java SDK & JRE if you have never installed java on your pc
+
+*Download IDE choose between VSCODE & NETBEANS.
+
+*On Xampp server START Apache & MySQL (Should show display green light when ready).
+
+*Use default ports (3306) for MySQL, which are automatically configured by Xampp
+
+*Run on your IDE
+
+
+
+NOTE:
+*All .jar files are inside the lib/ folder.
+
+- BCrypt.jar
+- mysql-connector.jar
