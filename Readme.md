@@ -10,7 +10,7 @@
 
 
 
-\*A secure java banking that will AI chatbot to help users navigate \& get help
+\*A secure java banking that will use AI chatbot to help users navigate \& get help
 
 &nbsp;24/7 hours a day (customer complaint agent)
 
