@@ -6,12 +6,15 @@ package com.Backend.DataAccess;
 
 /**
  *ALL INTERNAL & EXTERNAL CRUD OPERATIONS 
- * 
- * @author Mcacisi Sithole
+ * HAS ALL APPLICATION SQL QUERIES NEEDED FOR THE SYSTEM TO FUNCTION
+ * BUILT FOR PREVENTING SQL INJECTION
  */
+
+
+
 public class BankDA {
 
-   
+   private BankDA(){}
     
 
 
