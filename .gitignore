@@ -1,0 +1,17 @@
+# NETBEANS
+nbproject/
+build/
+dist/
+nbdist/
+resources/
+*.jar
+config.properties
+
+
+# MAVEN
+target/
+
+# LOGS
+*.log
+
+
