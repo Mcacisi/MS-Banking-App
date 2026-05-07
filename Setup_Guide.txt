@@ -14,7 +14,7 @@ DB CREDENTIALS
 - BELOW IS A EXAMPLE OF HOW TO CREATE ONE
 
    please note: No spacing in config.properties file
-              : NO QUATATION MARKS "" EVEN STRINGS
+              : NO QUATATION MARKS "" SINCE .properties FILE IS PLAIN TEXT
               : THESE ARE DEFAULT SETTINGS FOR EVERY XAMPP SERVER UNLESS CHANGED
 
    db.username=root
