@@ -12,6 +12,9 @@ import org.mindrot.jbcrypt.BCrypt;
  *     HASHING BANK PINCODE
  * @param PLAIN_CODE
  * 
+ *     VERIFY IF STORED PIN CODE == ENTERED PIN CODE
+ * @param PLAIN_CODE
+ * @param STORED_PIN
  * 
  * @author Mcacisi Sithole
  */
@@ -52,8 +55,11 @@ public class SystemServices {
     
     
    
-    
-    
-    
+    public static Boolean verifyPinCode( String plainCode, String dbPinCode){
+        
+        boolean isVerified = BCrypt.checkpw(plainCode, dbPinCode);
+        
+        return isVerified;  
+    }
    
 }
