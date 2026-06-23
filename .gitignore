@@ -10,6 +10,7 @@ config.properties
 
 # MAVEN
 target/
+test/
 
 # LOGS
 *.log

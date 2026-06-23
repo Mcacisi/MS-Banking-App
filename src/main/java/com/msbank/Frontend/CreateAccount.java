@@ -2,7 +2,10 @@
 package com.msbank.Frontend;
 
 
+import com.msbank.Extra.SystemServices;
 import com.msbank.Frontend.Login.Login;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -16,14 +19,7 @@ public class CreateAccount extends javax.swing.JFrame {
      */
     public CreateAccount() {
         initComponents();
-        
-        
-        
-    
-            
-      
-            
-        
+       
     }
 
     /**
@@ -173,6 +169,11 @@ public class CreateAccount extends javax.swing.JFrame {
         btnCreateAccount.setBackground(new java.awt.Color(0, 204, 204));
         btnCreateAccount.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         btnCreateAccount.setText("CREATE ACCOUNT");
+        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAccountActionPerformed(evt);
+            }
+        });
 
         btnLogin.setBackground(new java.awt.Color(255, 255, 255));
         btnLogin.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -361,6 +362,141 @@ public class CreateAccount extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
+        
+        
+        
+       //VALIDATE USER INPUT & ERROR HANDLING
+        
+        String fullname = txtFullname.getText().trim().toUpperCase();
+        
+        if (fullname.isEmpty() || fullname.length() < 3){
+           JOptionPane.showMessageDialog(this, "PLEASE ENTER YOUR FULLNAME", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+        }       
+        
+
+            
+        
+        
+        String idNumber = txtID.getText().trim();
+        
+        if (idNumber.isEmpty()){
+           JOptionPane.showMessageDialog(this, "ENTER YOUR ID NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+                 
+        } else if (!idNumber.matches("\\d{13}")){
+           JOptionPane.showMessageDialog(this, "ID NUMBER MUST CONTAIN 13 DIGITS ONLY", "INCORRECT DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+        }
+         
+        
+        
+        
+        
+        String contact = txtContact.getText().trim();
+        
+        if (contact.isEmpty()){
+           JOptionPane.showMessageDialog(this, "ENTER YOUR CONTACT NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+            
+        } else if (!contact.matches("\\d{10}")){
+           JOptionPane.showMessageDialog(this, "CONTACT NUMBER MUST CONTAIN 10 DIGITS ONLY", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+        }
+        
+        
+        
+        
+        
+        String gender;
+        
+        if (rbnMale.isSelected()){
+           gender = "MALE";
+           
+        } else if (rbnFemale.isSelected()){
+            gender = "FEMALE";
+            
+        } else {
+           JOptionPane.showMessageDialog(this, "PLEASE SELECET GENDER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+        }
+        
+        
+        
+        
+        
+        String email = txtEmail.getText().trim();
+        
+        if (email.isEmpty() || email.length() < 3){
+           JOptionPane.showMessageDialog(this, "PLEASE ENTER YOUR EMAIL", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return; 
+           
+        } else if (!email.contains("@")){
+           JOptionPane.showMessageDialog(this, "EMAIL ADDRESS IS INCOMPLETE", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
+        
+        String address = txtAddress.getText().trim().toUpperCase();
+        
+        if (address.isEmpty() || address.length() < 5){
+            JOptionPane.showMessageDialog(this, "PLEASE ENTER YOUR ADDRESS", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
+        
+        String city = txtCity.getText().trim().toUpperCase();
+        
+        if (city.isEmpty()){
+            JOptionPane.showMessageDialog(this, "PLEASE ENTER CITY", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
+        
+        String nationality = txtNationality.getText().trim().toUpperCase();
+        
+        if (nationality.isEmpty()){
+            JOptionPane.showMessageDialog(this, "PLEASE ENTER NATIONALITY", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
+        
+        char [] pin = pwdPin.getPassword();
+        
+        if (pin.length == 0 || pin.length >= 6){
+            JOptionPane.showMessageDialog(this, "ENTER YOUR PIN\nPIN MUST ALSO HAVE 5 DIGITS", "MISSING DATA INPUT", JOptionPane.WARNING_MESSAGE);
+           return; 
+        }
+        
+        
+        
+        
+        
+        char [] confirmPin = pwdConfirmPin.getPassword();
+        
+        if (!Arrays.equals(confirmPin, pin)){
+            JOptionPane.showMessageDialog(this, "PIN CODES DO NOT MATCH", "MISS MATCH DATA", JOptionPane.WARNING_MESSAGE);
+           return; 
+        }
+        
+        
+        String accountNo = SystemServices.generateSavingsAccount();
+        
+    }//GEN-LAST:event_btnCreateAccountActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -428,4 +564,14 @@ public class CreateAccount extends javax.swing.JFrame {
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNationality;
     // End of variables declaration//GEN-END:variables
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
