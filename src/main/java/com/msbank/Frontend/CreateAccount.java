@@ -495,6 +495,10 @@ public class CreateAccount extends javax.swing.JFrame {
         
         String accountNo = SystemServices.generateSavingsAccount();
         
+        //CONVERT CHAR TO STRING, CREATE OBJECT & CLEAR ARRAY
+        
+        
+        
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
     /**
