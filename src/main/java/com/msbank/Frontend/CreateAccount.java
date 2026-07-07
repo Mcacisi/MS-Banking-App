@@ -477,7 +477,7 @@ public class CreateAccount extends javax.swing.JFrame {
         char [] pin = pwdPin.getPassword();
         
         if (pin.length == 0 || pin.length >= 6){
-            JOptionPane.showMessageDialog(this, "ENTER YOUR PIN\nPIN MUST ALSO HAVE 5 DIGITS", "MISSING DATA INPUT", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ENTER YOUR PIN", "MISSING DATA INPUT", JOptionPane.WARNING_MESSAGE);
            return; 
         }
         

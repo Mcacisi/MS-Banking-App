@@ -2,6 +2,7 @@
 package com.msbank.Frontend.Login;
 
 import com.msbank.Frontend.CreateAccount;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Mcacisi Sithole
@@ -28,9 +29,9 @@ public class Login extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JToggleButton();
         jLabel3 = new javax.swing.JLabel();
-        txtFullname1 = new javax.swing.JTextField();
+        txtAccount = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        pwdPin1 = new javax.swing.JPasswordField();
+        pwdPin = new javax.swing.JPasswordField();
         btnForgotPin = new javax.swing.JToggleButton();
         btnCreateAccount = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -54,22 +55,27 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setText("LOGIN");
         btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.setPreferredSize(new java.awt.Dimension(102, 24));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("SAVINGS ACCOUNT NUMBER");
 
-        txtFullname1.setBackground(new java.awt.Color(153, 153, 153));
-        txtFullname1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        txtFullname1.setForeground(new java.awt.Color(255, 255, 255));
-        txtFullname1.setSelectionColor(new java.awt.Color(51, 255, 255));
+        txtAccount.setBackground(new java.awt.Color(153, 153, 153));
+        txtAccount.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        txtAccount.setForeground(new java.awt.Color(255, 255, 255));
+        txtAccount.setSelectionColor(new java.awt.Color(51, 255, 255));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("ENTER PIN CODE");
 
-        pwdPin1.setBackground(new java.awt.Color(153, 153, 153));
-        pwdPin1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        pwdPin.setBackground(new java.awt.Color(153, 153, 153));
+        pwdPin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         btnForgotPin.setBackground(new java.awt.Color(255, 255, 255));
         btnForgotPin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -99,14 +105,14 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(29, 29, 29)
-                        .addComponent(txtFullname1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pwdPin1)
+                            .addComponent(pwdPin)
                             .addComponent(btnForgotPin, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)))
                     .addComponent(btnCreateAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(121, Short.MAX_VALUE))
@@ -117,11 +123,11 @@ public class Login extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtFullname1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(pwdPin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwdPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,6 +188,41 @@ public class Login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
+    
+    
+    
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        
+        //DATA VALIDATION
+        String account = txtAccount.getText().trim();
+        
+        if (account.isEmpty()){
+            JOptionPane.showMessageDialog(this, "ENTER YOUR SAVINGS ACCOUNT NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+           return;
+           
+           
+        } else if (!account.matches("\\d{10}")){
+            JOptionPane.showMessageDialog(this, "ENTER YOUR SAVINGS ACCOUNT NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        
+        
+        
+        char [] pin = pwdPin.getPassword();
+        
+        if (pin.length == 0 || pin.length >= 6){
+            JOptionPane.showMessageDialog(this, "ENTER YOUR PIN", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
+            return;
+           
+        } 
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -227,7 +268,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField pwdPin1;
-    private javax.swing.JTextField txtFullname1;
+    private javax.swing.JPasswordField pwdPin;
+    private javax.swing.JTextField txtAccount;
     // End of variables declaration//GEN-END:variables
 }
