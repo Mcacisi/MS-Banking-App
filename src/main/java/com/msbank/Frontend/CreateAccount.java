@@ -104,6 +104,7 @@ public class CreateAccount extends javax.swing.JFrame {
 
         txtFullname.setBackground(new java.awt.Color(102, 102, 102));
         txtFullname.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtFullname.setForeground(new java.awt.Color(255, 255, 255));
         txtFullname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFullnameActionPerformed(evt);
@@ -122,9 +123,11 @@ public class CreateAccount extends javax.swing.JFrame {
 
         txtID.setBackground(new java.awt.Color(102, 102, 102));
         txtID.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtID.setForeground(new java.awt.Color(255, 255, 255));
 
         txtContact.setBackground(new java.awt.Color(102, 102, 102));
         txtContact.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtContact.setForeground(new java.awt.Color(255, 255, 255));
 
         buttonGroup1.add(rbnMale);
         rbnMale.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -138,12 +141,15 @@ public class CreateAccount extends javax.swing.JFrame {
 
         txtAddress.setBackground(new java.awt.Color(102, 102, 102));
         txtAddress.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtAddress.setForeground(new java.awt.Color(255, 255, 255));
 
         pwdPin.setBackground(new java.awt.Color(102, 102, 102));
         pwdPin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        pwdPin.setForeground(new java.awt.Color(255, 255, 255));
 
         pwdConfirmPin.setBackground(new java.awt.Color(102, 102, 102));
         pwdConfirmPin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        pwdConfirmPin.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -152,6 +158,7 @@ public class CreateAccount extends javax.swing.JFrame {
 
         txtCity.setBackground(new java.awt.Color(102, 102, 102));
         txtCity.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtCity.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 0));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -160,9 +167,11 @@ public class CreateAccount extends javax.swing.JFrame {
 
         txtNationality.setBackground(new java.awt.Color(102, 102, 102));
         txtNationality.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtNationality.setForeground(new java.awt.Color(255, 255, 255));
 
         txtEmail.setBackground(new java.awt.Color(102, 102, 102));
         txtEmail.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 

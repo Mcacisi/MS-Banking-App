@@ -76,6 +76,7 @@ public class Login extends javax.swing.JFrame {
 
         pwdPin.setBackground(new java.awt.Color(153, 153, 153));
         pwdPin.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        pwdPin.setForeground(new java.awt.Color(255, 255, 255));
 
         btnForgotPin.setBackground(new java.awt.Color(255, 255, 255));
         btnForgotPin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -86,7 +87,7 @@ public class Login extends javax.swing.JFrame {
         btnForgotPin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnCreateAccount.setBackground(new java.awt.Color(0, 102, 102));
-        btnCreateAccount.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCreateAccount.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnCreateAccount.setForeground(new java.awt.Color(255, 255, 255));
         btnCreateAccount.setText("create account if not exists");
         btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +152,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jLabel9.setBackground(new java.awt.Color(102, 102, 102));
