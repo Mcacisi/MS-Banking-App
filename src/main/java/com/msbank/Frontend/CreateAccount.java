@@ -2,8 +2,10 @@
 package com.msbank.Frontend;
 
 
+import com.msbank.Backend.PD.BankPD;
 import com.msbank.Extra.SystemServices;
 import com.msbank.Frontend.Login.Login;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -13,6 +15,12 @@ import javax.swing.JOptionPane;
  * @author Mcacisi Sithole
  */
 public class CreateAccount extends javax.swing.JFrame {
+    
+    //DECLARE ALL VARIABLES
+    ArrayList <BankPD> arrBank = new ArrayList<> ();
+    
+    
+    
 
     /**
      * Creates new form createAccount
@@ -503,12 +511,40 @@ public class CreateAccount extends javax.swing.JFrame {
         
         
         String accountNo = SystemServices.generateSavingsAccount();
+
+
+        //CONVERT CHAR TO STRING, CREATE OBJECT OF BANK_PD & CLEAR ARRAY, VARIABLES
+        String pinCode = new String(pin);
+
         
-        //CONVERT CHAR TO STRING, CREATE OBJECT & CLEAR ARRAY
+        BankPD bank = new BankPD(fullname, idNumber, contact, gender, email, address, nationality, city, accountNo);
+        arrBank.add(bank);
         
+        System.out.println(bank.toString());
+
         
+        clearAllFields();
+        Arrays.fill(pin, '\0');
+        Arrays.fill(confirmPin, '\0');
         
     }//GEN-LAST:event_btnCreateAccountActionPerformed
+
+
+
+    //CLEAR ALL FIELDS & ARRAYS
+    public void clearAllFields(){
+        txtFullname.setText("");
+        txtID.setText("");
+        txtContact.setText("");
+        buttonGroup1.clearSelection();
+        txtEmail.setText("");
+        txtAddress.setText("");
+        txtNationality.setText("");
+        txtCity.setText("");
+        pwdPin.setText("");
+        pwdConfirmPin.setText("");
+        
+    }
 
     /**
      * @param args the command line arguments
