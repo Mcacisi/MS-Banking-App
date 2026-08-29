@@ -1,12 +1,15 @@
 
 package com.msbank.Backend.DA;
 
+import com.msbank.Backend.PD.BankPD;
 import com.msbank.Config.ConfigManager;
 import com.msbank.CustomException.DataStorageException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
+
 
 /**
  * CLASS RESPONSIBLE FOR INITIALIZING CONNECTION AND BUILD DATABASE STRUCTURE
@@ -26,6 +29,7 @@ public class BankDA {
    private static String url = ConfigManager.getUrl();
    private static String username = ConfigManager.getUsername();
    private static String password = ConfigManager.getPassword();
+   private static ArrayList <BankPD> arrBank;
    
    
    static void initializeConnection() throws DataStorageException{
@@ -36,16 +40,16 @@ public class BankDA {
             conn = DriverManager.getConnection(url, username, password);
             
             if (conn == null){
-                throw new RuntimeException("CONNECTION VARIABLE IS NULL");
+                throw new DataStorageException("CONNECTION VARIABLE IS NULL");
             }
             
             
         } catch (ClassNotFoundException ex){
-            JOptionPane.showMessageDialog(null, "MYSQL DRIVER NOT FOUND\n" + ex.getMessage());
+            throw new DataStorageException("MYSQL DRIVER NOT FOUND\n\n" + ex.getMessage());
             
             
         } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null, "GETTING CONNECTION FROM DRIVER FAILED\n" +ex.getMessage());
+            throw new DataStorageException("CONNECTION FAILED\n\n" + ex.getMessage());
         } 
    }
            
@@ -54,6 +58,7 @@ public class BankDA {
    
    static void createDatabaseTable() throws DataStorageException{
        
+       String createDB = "CREATE DATABASE vault IF NOT EXISTS ";
    }
    
      

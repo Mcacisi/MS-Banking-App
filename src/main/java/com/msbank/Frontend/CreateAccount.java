@@ -517,15 +517,48 @@ public class CreateAccount extends javax.swing.JFrame {
         String pinCode = new String(pin);
 
         
-        BankPD bank = new BankPD(fullname, idNumber, contact, gender, email, address, nationality, city, accountNo);
-        arrBank.add(bank);
         
-        System.out.println(bank.toString());
 
         
-        clearAllFields();
-        Arrays.fill(pin, '\0');
-        Arrays.fill(confirmPin, '\0');
+        
+        //ASK USER IF CORRECT OR NOW (IF YES, CALL CLEAR METHODS)
+        
+        
+        String userSummary = "FULLNAME:    " + fullname + "\n\n" +
+                             "ID NUMBER:   " + idNumber + "\n\n" +
+                             "CONTACT:     " + contact + "\n\n" +
+                             "GENDER:      " + gender + "\n\n" +
+                             "EMAIL:       " + email + "\n\n" +
+                             "ADDRESS:     " + address + "\n\n" +
+                             "NATIONALITY: " + nationality + "\n\n" +
+                             "CITY:        " + city + "\n\n" +
+                             "PIN CODE:    " + pinCode + "\n\n" +
+                             "YOUR ACCOUNT NUMBER: " + accountNo + "\n\n";
+        
+        
+        int response = JOptionPane.showConfirmDialog(this, userSummary, 
+                                                "CONFIRM DETAILS", 
+                                                JOptionPane.YES_NO_OPTION, 
+                                                JOptionPane.QUESTION_MESSAGE);
+        
+        
+        //SHOWS USER ALL DETAILS & CHECK IF CORRECT
+        
+        if (response == JOptionPane.YES_OPTION){
+            
+           BankPD bank = new BankPD(fullname, idNumber, contact, gender, email, address, nationality, city, accountNo);
+           arrBank.add(bank);   
+            
+           clearAllFields();
+           Arrays.fill(pin, '\0');
+           Arrays.fill(confirmPin, '\0');
+           
+        }  else {
+            
+            txtFullname.requestFocus();
+        }
+        
+        
         
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
@@ -533,6 +566,7 @@ public class CreateAccount extends javax.swing.JFrame {
 
     //CLEAR ALL FIELDS & ARRAYS
     public void clearAllFields(){
+        
         txtFullname.setText("");
         txtID.setText("");
         txtContact.setText("");
@@ -546,6 +580,8 @@ public class CreateAccount extends javax.swing.JFrame {
         
     }
 
+    
+    
     /**
      * @param args the command line arguments
      */
