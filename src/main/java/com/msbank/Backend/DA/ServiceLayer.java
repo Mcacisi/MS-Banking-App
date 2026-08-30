@@ -20,5 +20,8 @@ public class ServiceLayer {
     }
     
     
+    public static void createDatabaseTable() throws DataStorageException{
+        BankDA.createDatabaseTable();
+    }
     
 }

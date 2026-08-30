@@ -6,6 +6,7 @@ import com.msbank.Config.ConfigManager;
 import com.msbank.CustomException.DataStorageException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -58,7 +59,50 @@ public class BankDA {
    
    static void createDatabaseTable() throws DataStorageException{
        
-       String createDB = "CREATE DATABASE vault IF NOT EXISTS ";
+       
+       //CREATE APPLICATION DATABASE
+       String createDB = "CREATE DATABASE IF NOT EXISTS vault ";
+       String useDB = "USE vault";
+       
+       try {
+           
+             PreparedStatement ps = conn.prepareStatement(createDB);
+             ps.execute();
+             
+             ps = conn.prepareStatement(useDB);
+             ps.execute();
+             
+       } catch (SQLException ex){
+           
+           throw new DataStorageException("db not created" + ex.getMessage());
+       }
+       
+       
+       //CREATE APPLICATION TABLES
+       String createTable = "CREATE TABLE PersonalDetails ("
+                          + "Fullname VARCHAR(255),"
+                          + "Id_Number VARCHAR(13) UNIQUE,"
+                          + "Contact VARCHAR(10),"
+                          + "Gender VARCHAR(6),"
+                          + "Email VARCHAR(255) NOT NULL,"
+                          + "Address VARCHAR(255),"
+                          + "Nationality VARCHAR(255) NOT NULL,"
+                          + "City VARCHAR(255),"
+                          + "AccountNo VARCHAR(10) PRIMARY KEY"
+                          + ")";
+       
+       try{
+           
+           PreparedStatement ps = conn.prepareCall(createTable);
+           ps.executeUpdate();
+           
+           
+       } catch(SQLException ex){
+           
+          throw new DataStorageException( "CHECK Personal table\n\n" + ex.getMessage());
+       }
+       
+               
    }
    
      

@@ -2,7 +2,9 @@
 package com.msbank.Frontend;
 
 
+import com.msbank.Backend.DA.ServiceLayer;
 import com.msbank.Backend.PD.BankPD;
+import com.msbank.CustomException.DataStorageException;
 import com.msbank.Extra.SystemServices;
 import com.msbank.Frontend.Login.Login;
 import java.util.ArrayList;
@@ -28,8 +30,23 @@ public class CreateAccount extends javax.swing.JFrame {
     public CreateAccount() {
         initComponents();
        
+        
+        //TRY-CATCH TO ESTABLISH CONNECTION WITH DB & SETUP ALL NECCESSARY TABLES FOR APPLICATION
+        try {
+             ServiceLayer.initializeConnection();
+             ServiceLayer.createDatabaseTable();
+        
+        }catch (DataStorageException e){
+            JOptionPane.showMessageDialog(this,"Check Database\n" + e.getMessage(),"Database setup failed",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -517,12 +534,8 @@ public class CreateAccount extends javax.swing.JFrame {
         String pinCode = new String(pin);
 
         
-        
-
-        
-        
+       
         //ASK USER IF CORRECT OR NOW (IF YES, CALL CLEAR METHODS)
-        
         
         String userSummary = "FULLNAME:    " + fullname + "\n\n" +
                              "ID NUMBER:   " + idNumber + "\n\n" +
@@ -649,13 +662,7 @@ public class CreateAccount extends javax.swing.JFrame {
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNationality;
     // End of variables declaration//GEN-END:variables
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
