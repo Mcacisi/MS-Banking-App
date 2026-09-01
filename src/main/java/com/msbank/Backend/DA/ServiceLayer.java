@@ -1,7 +1,9 @@
 
 package com.msbank.Backend.DA;
 
+import com.msbank.Backend.PD.BankPD;
 import com.msbank.CustomException.DataStorageException;
+import com.msbank.CustomException.DuplicateRecordException;
 
 /**
  *
@@ -22,6 +24,11 @@ public class ServiceLayer {
     
     public static void createDatabaseTable() throws DataStorageException{
         BankDA.createDatabaseTable();
+    }
+    
+    
+    public static void addNewClient(BankPD bank) throws DuplicateRecordException, DataStorageException{
+        BankDA.addNewClient(bank);
     }
     
 }

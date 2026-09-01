@@ -4,9 +4,11 @@ package com.msbank.Backend.DA;
 import com.msbank.Backend.PD.BankPD;
 import com.msbank.Config.ConfigManager;
 import com.msbank.CustomException.DataStorageException;
+import com.msbank.CustomException.DuplicateRecordException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -67,7 +69,7 @@ public class BankDA {
        try {
            
              PreparedStatement ps = conn.prepareStatement(createDB);
-             ps.execute();
+             ps.executeUpdate();
              
              ps = conn.prepareStatement(useDB);
              ps.execute();
@@ -79,7 +81,7 @@ public class BankDA {
        
        
        //CREATE APPLICATION TABLES
-       String createTable = "CREATE TABLE PersonalDetails ("
+       String createTable = "CREATE TABLE IF NOT EXISTS PersonalDetails ("
                           + "Fullname VARCHAR(255),"
                           + "Id_Number VARCHAR(13) UNIQUE,"
                           + "Contact VARCHAR(10),"
@@ -105,9 +107,49 @@ public class BankDA {
                
    }
    
+   
+   
+   
+   static void addNewClient(BankPD bank) throws DuplicateRecordException, DataStorageException{
+       
+       String addClient = "INSERT INTO PersonalDetails(Fullname, Id_Number, Contact, Gender, Email, Address, Nationality, City, AccountNo) "
+                        + "VALUES(?,?,?,?,?,?,?,?,?) ";
+       
+       
+       try{
+           
+           PreparedStatement ps = conn.prepareStatement(addClient);
+           ps.setString(1, bank.getFullname());
+           ps.setString(2,bank.getIdNumber());
+           ps.setString(3,bank.getContact());
+           ps.setString(4,bank.getGender());
+           ps.setString(5,bank.getEmail());
+           ps.setString(6,bank.getAddress());
+           ps.setString(7,bank.getNationality());
+           ps.setString(8,bank.getCity());
+           ps.setString(9,bank.getAccountNumber());
+           
+           ps.executeUpdate();
+           
+       }catch (SQLException ex){
+           throw new DataStorageException("ADDING CLIENT....\n\n" + ex.getMessage());
+       }
+       
+       
+   }
      
     
    
-   
-   
+     
 }
+
+
+
+
+/* BANK FEATURES
+   loginAccount()
+   checkBalane()
+   withdraw()
+   Deposit()
+   blockAccount()
+   */ 

@@ -4,6 +4,7 @@ package com.msbank.Frontend;
 
 import com.msbank.Backend.DA.ServiceLayer;
 import com.msbank.Backend.PD.BankPD;
+import com.msbank.Backend.PD.BankVault;
 import com.msbank.CustomException.DataStorageException;
 import com.msbank.Extra.SystemServices;
 import com.msbank.Frontend.Login.Login;
@@ -560,7 +561,9 @@ public class CreateAccount extends javax.swing.JFrame {
         if (response == JOptionPane.YES_OPTION){
             
            BankPD bank = new BankPD(fullname, idNumber, contact, gender, email, address, nationality, city, accountNo);
-           arrBank.add(bank);   
+           arrBank.add(bank); 
+           
+           BankVault bankAddVault = new BankVault(pinCode,accountNo); 
             
            clearAllFields();
            Arrays.fill(pin, '\0');
