@@ -2,6 +2,7 @@
 package com.msbank.Frontend.Login;
 
 import com.msbank.Frontend.CreateAccount;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 /**
  *
@@ -214,13 +215,25 @@ public class Login extends javax.swing.JFrame {
         
         if (pin.length == 0 || pin.length >= 6){
             JOptionPane.showMessageDialog(this, "ENTER YOUR PIN", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
-            return;
-           
+            return;  
         } 
+        
+        String StringPin = new String(pin);
+        
+        
+        
+        //CLEAR FIELDS
+        clearFields();
+         Arrays.fill(pin, '\0');
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     
-    
+    //CLEAR ALL FIELDS
+    private void clearFields(){
+        txtAccount.setText("");
+        
+    }
     
     
     
