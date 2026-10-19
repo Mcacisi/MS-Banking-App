@@ -79,8 +79,10 @@ public class BankDA {
            throw new DataStorageException("db not created" + ex.getMessage());
        }
        
+
+
        
-       //CREATE APPLICATION TABLES
+       //CREATE APPLICATION PERSONAL_DETAILS TABLE
        String createTable = "CREATE TABLE IF NOT EXISTS PersonalDetails ("
                           + "Fullname VARCHAR(255),"
                           + "Id_Number VARCHAR(13) UNIQUE,"
@@ -104,6 +106,18 @@ public class BankDA {
           throw new DataStorageException( "CHECK Personal table\n\n" + ex.getMessage());
        }
        
+
+
+
+       //CREATE APPLICATION BANK_VAULT TABLE
+       String createTable2 = "CREATE TABLE IF NOT EXISTS vaultPD ("
+                           + "VaultNo INT PRIMARY KEY AUTO_INCREMENT,"
+                           + "AccountNo VARCHAR(10),"
+                           + "Pin VARCHAR(5) NOT NULL"
+                           + "FOREIGN KEY (AccountNo) REFERENCES PersonalDetails(AccountNo)"
+                            + ")";
+
+
                
    }
    
