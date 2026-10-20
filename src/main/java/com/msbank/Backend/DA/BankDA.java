@@ -35,6 +35,7 @@ public class BankDA {
    private static ArrayList <BankPD> arrBank;
    
    
+   
    static void initializeConnection() throws DataStorageException{
        
         try{
@@ -152,6 +153,10 @@ public class BankDA {
        
    }
      
+   
+   
+   
+   //GET DATA
     
    
      

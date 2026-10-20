@@ -6,7 +6,7 @@ nbdist/
 resources/
 *.jar
 config.properties
-
+.env
 
 # MAVEN
 target/

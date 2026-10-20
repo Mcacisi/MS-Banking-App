@@ -1,4 +1,4 @@
-package com.msbank.Frontend;
+package com.msbank.Frontend.Dashboard;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -323,6 +323,9 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     // ------------------------------------------------------------------
     // BUTTON EVENTS (double-click a button in the Design tab to get here)
     // ------------------------------------------------------------------
@@ -332,29 +335,51 @@ public class Dashboard extends javax.swing.JFrame {
         menuPopup.show(btnMenu, 0, btnMenu.getHeight());
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    
+    
+    
     private void btnSendMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendMoneyActionPerformed
         // TODO: open your Send Money screen here
         showComingSoon("Send Money");
     }//GEN-LAST:event_btnSendMoneyActionPerformed
 
+    
+    
+    
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
         // TODO: open your Buy screen here
         showComingSoon("Buy");
     }//GEN-LAST:event_btnBuyActionPerformed
 
+    
+    
+    
+    
     private void btnTransactionHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransactionHistoryActionPerformed
         // TODO: load the transactions from MySQL and show them
         showComingSoon("Transaction History");
     }//GEN-LAST:event_btnTransactionHistoryActionPerformed
 
+    
+    
+    
+    
     private void btnChangePinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePinActionPerformed
         showChangePinDialog();
     }//GEN-LAST:event_btnChangePinActionPerformed
 
+    
+    
+    
+    
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
         confirmSignOut();
     }//GEN-LAST:event_btnSignOutActionPerformed
 
+    
+    
+    
+    
     // ------------------------------------------------------------------
     // STYLING THAT THE DESIGNER CANNOT DO (borders, flat buttons, cursor)
     // ------------------------------------------------------------------

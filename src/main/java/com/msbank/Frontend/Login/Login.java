@@ -2,6 +2,7 @@
 package com.msbank.Frontend.Login;
 
 import com.msbank.Frontend.CreateAccount;
+import com.msbank.Frontend.Dashboard.Dashboard;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 /**
@@ -202,12 +203,10 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ENTER YOUR SAVINGS ACCOUNT NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
            return;
            
-           
         } else if (!account.matches("\\d{10}")){
             JOptionPane.showMessageDialog(this, "ENTER YOUR SAVINGS ACCOUNT NUMBER", "MISSING DATA INPUT", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        
         
         
         
@@ -221,11 +220,22 @@ public class Login extends javax.swing.JFrame {
         String StringPin = new String(pin);
         
         
+        //SUBMIT DATA TO RESPECTIVE PD LAYERS
+        
+        
+        
+        //CHECK IF DB DATA MATCHES USER DATA
+        
+        
         
         //CLEAR FIELDS
         clearFields();
-         Arrays.fill(pin, '\0');
+        Arrays.fill(pin, '\0');
         
+         
+         //INVOKE THE MAIN DASHBOARD TO ACCESS BANK FUNCTIONS
+         Dashboard dash = new Dashboard();
+         dash.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     
