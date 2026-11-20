@@ -8,20 +8,20 @@ package com.msbank.Backend.PD;
  * @author Mcacisi Sithole
  */
 
-public class BankVault {
+public class BankVaultPD {
    
     private String pin;
     private String accountNumber;
     
     
-    public BankVault(){
+    public BankVaultPD(){
     pin = "";
     accountNumber = "";
     }
 
     
     
-    public BankVault(String pin, String accountNumber) {
+    public BankVaultPD(String pin, String accountNumber) {
         this.pin = pin;
         this.accountNumber = accountNumber;
     }
