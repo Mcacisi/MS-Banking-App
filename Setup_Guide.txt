@@ -1,36 +1,420 @@
 
-
-REQUIRED SPECS TO RUN PROJECT
-- XAMPP Version: 8.2.12
-- JAVA java version "1.8.0_251"
-- MySQL
-- APACHE NETBEANS IDE 19
-
-
-
-DB CREDENTIALS
-- NAVIGATE TO SRC/ MAIN/ RESOURCES
-- CREATE A config.properties FILE TO STORE YOUR DB CREDENTIALS(url, username, password, driver)
-- BELOW IS A EXAMPLE OF HOW TO CREATE ONE
-
-   please note: No spacing in config.properties file
-              : NO QUATATION MARKS "" SINCE .properties FILE IS PLAIN TEXT
-              : THESE ARE DEFAULT SETTINGS FOR EVERY XAMPP SERVER UNLESS CHANGED
-
-   db.username=root
-   db.password=
-   db.url=jdbc:mysql://localhost:3306/
-   db.driver=com.mysql.cj.jdbc.Driver
+==============================================================================
+  [MS BANK APPLICATION] - SETUP GUIDE
+==============================================================================
+Last updated : 2026-11-20
+Tested on    : Windows 11 | Java 21 | Apache NetBeans 19 | Maven (bundled with
+               NetBeans) | MySQL Server 8.0 | MySQL Workbench
 
 
+HOW TO USE THIS FILE
+  Replace everything in [SQUARE_BRACKETS] with your project's real values
+  (use Find & Replace), then delete this paragraph.
 
-AUTO DOWNLOADS (INTERNAL DOWNLOADS)
-*MAVEN WILL AUTOMATICALLY DOWNLOAD EVERYTHING NEEDED TO RUN THE PROJECT ONCE YOU OPEN IN NETBEANS FOR 
- THE FIRST TIME 
+  Placeholders used in this file:
+    [PROJECT_NAME]    e.g. MS-Banking-App
+    [DB_USERNAME]     e.g. root
+    [REPO_URL]        e.g. https://github.com/Mcacisi/MS-Banking-App
+    [MAIN_CLASS]      e.g. src/main/java/com/msbank/Frontend/CreateAccount.java
+    [CONFIG_LOCATION] where ConfigManager looks for config.properties
+                      (e.g. "the project root folder")
+    [DEFAULT_LOGIN]   first-run username/password, if your app seeds one
+                      (delete those lines if it does not)
 
-*IT IS RECOMMENDED TO USE NETBEANS TO AUTO DOWNLOAD pom.xml APP SETTINGS
 
-*NAVIGATE TO CLEAN & BUILD (SHIFT + F11) TO DOWNLOAD ALL DEPENDENCIES & APP SETTINGS
+NOTE ON MYSQL VERSIONS
+  MySQL 8.0 reached end of life on 30 April 2026, so it no longer receives
+  security patches. It is fine on your own laptop for learning, but for any
+  NEW install prefer MySQL 8.4 LTS. Every step below is identical for 8.4,
+  except the Windows service is called "MySQL84" instead of "MySQL80".
+
+
+
+------------------------------------------------------------------------------
+TABLE OF CONTENTS
+------------------------------------------------------------------------------
+  1.  How this application starts up (read this first)
+  2.  What you need (prerequisites)
+  3.  Install and verify the tools
+  4.  Prepare a MySQL user for the application
+  5.  Get the project and open it in NetBeans
+  6.  Configure config.properties
+  7.  Run the application (first run)
+  8.  Verify the database in Workbench
+  9.  Optional: build a runnable JAR
+  10. Migrating from XAMPP
+  11. Before you push to GitHub
+  12. Quick-start cheat sheet
+
+
+
+
+------------------------------------------------------------------------------
+1. HOW THIS APPLICATION STARTS UP (READ THIS FIRST)
+------------------------------------------------------------------------------
+[MS BANK APPLICATION] is a Java Swing desktop application built in three tiers:
+
+    Presentation (Swing forms)  ->  Business logic  ->  Data access (DA)
+
+Start-up sequence:
+  1. ConfigManager reads config.properties (host, port, database name,
+     username, password).
+  2. The DA layer connects to the MySQL server and runs
+     CREATE DATABASE IF NOT EXISTS ... and CREATE TABLE IF NOT EXISTS ...
+  3. The Swing window opens.
+
+
+What this means for you:
+  - You do NOT have to create the database or tables by hand.
+  - The MySQL user in config.properties must be allowed to create the
+    database (see section 4).
+  - The auto-create only builds what is MISSING. If you change the table
+    structure in code later, an existing database is NOT updated (see 8).
+
+
+
+
+------------------------------------------------------------------------------
+2. WHAT YOU NEED (PREREQUISITES)
+------------------------------------------------------------------------------
+  Tool                  Version    Where to get it
+  --------------------  ---------  -----------------------------------------
+  JDK                   21         Eclipse Temurin (adoptium.net) or Oracle JDK
+  Apache NetBeans       19         netbeans.apache.org
+  Maven                 3.9.x      Bundled with NetBeans (standalone optional)
+  MySQL Server          8.0/8.4    dev.mysql.com/downloads/installer
+  MySQL Workbench       8.0.x      Included in the MySQL Installer
+  Git (optional)        any        git-scm.com
+
+  Operating system: Windows 11 with a normal desktop session (Swing needs a
+  display; it will not run on a headless server).
+  Free port: 3306 (MySQL)
+
+
+
+
+------------------------------------------------------------------------------
+3. INSTALL AND VERIFY THE TOOLS
+------------------------------------------------------------------------------
+
+3.1  JDK 21
+  1. Install JDK 21 (default location is usually
+     C:\Program Files\Java\jdk-21 or C:\Program Files\Eclipse Adoptium\...).
+  2. Set JAVA_HOME:
+       Start menu > "Edit the system environment variables"
+       > Environment Variables > System variables > New
+       Name : JAVA_HOME
+       Value: C:\Program Files\Java\jdk-21     (use YOUR actual path)
+  3. Edit the "Path" system variable and add:  %JAVA_HOME%\bin
+  4. Open a NEW Command Prompt and verify:
+       java -version
+       javac -version
+     Both must report version 21.x. If they show another version, another JDK
+     is earlier in your Path - move %JAVA_HOME%\bin to the top.
+
+
+3.2  Apache NetBeans 19
+  1. Install NetBeans 19.
+  2. Tell NetBeans to use JDK 21:
+       Tools > Java Platforms > Add Platform > choose the JDK 21 folder.
+  3. If NetBeans does not start on JDK 21, open
+       C:\Program Files\NetBeans-19\netbeans\etc\netbeans.conf
+     and set (adjust the path):
+       netbeans_jdkhome="C:\Program Files\Java\jdk-21"
+  4. Maven is built in. (Optional) For command-line use, install Maven 3.9.x
+     and check with:  mvn -version   (must say "Java version: 21.x")
+
+
+3.3  MySQL Server (MySQL Installer for Windows)
+  1. Download "MySQL Installer" from dev.mysql.com/downloads/installer.
+  2. Choose "Custom" and select: MySQL Server 8.0.x (or 8.4.x) and
+     MySQL Workbench.
+  3. In the configuration screens use:
+       Config Type        : Development Computer
+       Port               : 3306
+       Authentication     : Use Strong Password Encryption (recommended)
+       Root password      : choose a strong one and store it in a password
+                            manager. Do NOT write it in this file.
+       Windows Service    : "MySQL80", start at system startup
+  4. Verify the server is running:
+       Win + R > services.msc > find "MySQL80" > Status should be "Running".
+
+
+3.4  MySQL Workbench
+  1. Open Workbench > under "MySQL Connections" click "Local instance MySQL80".
+  2. Enter the root password.
+  3. In the query editor run:
+       SELECT VERSION();
+     If you see a version number, MySQL and Workbench are working.
+
+
+
+
+------------------------------------------------------------------------------
+4. PREPARE A MYSQL USER FOR THE APPLICATION
+------------------------------------------------------------------------------
+Because the application creates its own database, the user in
+config.properties needs permission to do that. Pick ONE option.
+
+OPTION A - Quick local development (simplest)
+  Put the MySQL "root" user and its password in config.properties(Look for resources folder inside src folder).
+  Fine on your own laptop. Do NOT do this on a shared or real system.
+
+
+OPTION B - Dedicated user (recommended habit for the industry)
+  In Workbench, connected as root, run (change the password first):
+
+       CREATE USER IF NOT EXISTS '[DB_USER]'@'localhost'
+         IDENTIFIED BY 'CHANGE_ME_STRONG_PASSWORD';
+
+       GRANT ALL PRIVILEGES ON `[DB_NAME]`.* TO '[DB_USER]'@'localhost';
+
+  Notes:
+    - MySQL lets you grant privileges on a database that does not exist yet.
+      That is exactly what allows [DB_USER] to run CREATE DATABASE for
+      [DB_NAME] - and ONLY that database - without being root.
+    - The database name here must match db.name in config.properties exactly.
+    - Check the result:  SHOW GRANTS FOR '[DB_USER]'@'localhost';
+
+
+
+
+------------------------------------------------------------------------------
+5. GET THE PROJECT AND OPEN IT IN NETBEANS
+------------------------------------------------------------------------------
+  1. Get the code:
+       git clone https://github.com/Mcacisi/MS-Banking-App
+     (or download the ZIP from GitHub and extract it).
+  2. NetBeans: File > Open Project > select the folder that contains pom.xml
+     (the icon shows a small "m" for Maven).
+  3. Make sure the project uses Java 21:
+       Right-click project > Properties > Build > Compile > Java Platform
+       > JDK 21.
+     Menu names can differ slightly between NetBeans versions.
+  4. Check pom.xml contains:
+
+       <properties>
+           <maven.compiler.release>21</maven.compiler.release>
+           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       </properties>
+
+  5. Check the MySQL driver dependency. Old projects used the artifact
+     "mysql:mysql-connector-java"; that name is outdated. Use:
+
+       <dependency>
+           <groupId>com.mysql</groupId>
+           <artifactId>mysql-connector-j</artifactId>
+           <version>[LATEST_FROM_MAVEN_CENTRAL]</version>
+           <scope>runtime</scope>
+       </dependency>
+
+     The driver class is com.mysql.cj.jdbc.Driver. With JDBC 4+ you do NOT
+     need Class.forName(...); the driver registers itself.
+  6. Download dependencies:
+       Right-click project > Clean and Build
+     The first build can take a few minutes.
+  7. Set the main class if it is not set yet:
+       Right-click project > Properties > Run > Main Class =
+       com.msbank.frontend.CreateAccount
+
+
+
+
+------------------------------------------------------------------------------
+6. CONFIGURE config.properties
+------------------------------------------------------------------------------
+All settings, including the database credentials, live in config.properties
+and are read by ConfigManager.
+
+  1. Find config.properties.example next to where config.properties belongs
+     (INSIDE src/main FOLDER CREATE resources folder THEN INSIDE CREATE config.properties file ).
+
+  2. Copy it and rename the copy to  config.properties
+
+  3. Edit the values. The keys below are EXAMPLES - use the exact key names
+     your ConfigManager expects:
+
+     
+       #DB CREDENTIALS & APP SETTINGS __ [config.properties.example]
+       db.username=[YOUR_DB_NAME]
+       db.password=[YOUR_PASSWORD]
+       db.driver=com.mysql.cj.jdbc.Driver
+       db.url=jdbc:mysql://localhost:3306/
+       
+
+  db.username   The MySQL user. "root" for local development, or [DB_USER]
+                if you chose option B in section 4.
+  db.password   That user's password. This is normally the ONLY value you
+                have to change.
+  db.url        The MySQL server address and port. It ends with "/" on
+                purpose: it contains no database name, because the
+                application creates and selects its own database. Change
+                3306 only if you used a different port during installation.
+  db.driver     Leave as it is.
+ 
+
+After editing the file:
+  - Save it and run Clean and Build so the new values are copied into
+    target/classes. (If your change does not seem to take effect, this is
+    almost always why.)
+  - If the file is called config.properties.example, copy/rename it to
+    config.properties first.
+  - Windows hides file extensions by default. Make sure the file is not
+    really named "config.properties.txt" (Explorer > View > Show > File name
+    extensions).
+ 
+SECURITY: this file holds a real MySQL password. See section 12 for how to
+keep it out of GitHub.
+
+
+NB: DO NOT TOUCH configManager FOLDER UNLESS YOU UNDERSTANT IT'S ROLE
+
+
+
+
+------------------------------------------------------------------------------
+7. RUN THE APPLICATION (FIRST RUN)
+------------------------------------------------------------------------------
+  1. Make sure the MySQL80 service is Running (section 3.3 step 4).
+  2. NetBeans: right-click the project > Run  (or press F6).
+  3. The first start takes a few extra seconds while the database and tables
+     are created. Then the Swing window opens.
+  4. Watch the NetBeans Output window. If there is a red stack trace, jump to
+     section 11 and look at the FIRST "Caused by:" line.
+  5. If the app has a login screen, use: [DEFAULT_LOGIN]
+     Change that password after your first login.
+
+
+
+
+------------------------------------------------------------------------------
+8. VERIFY THE DATABASE IN WORKBENCH
+------------------------------------------------------------------------------
+  1. In Workbench open your connection and click the circular-arrows
+     "Refresh" icon in the SCHEMAS panel.
+  2. [DB_NAME] should now be listed, with its tables inside.
+  3. Optional check in the query editor:
+       SHOW TABLES FROM [DB_NAME];
+       SELECT DATABASE(), CURRENT_USER();
+
+  Checklist:
+  [ ] java -version prints 21.x
+  [ ] MySQL80 service is Running
+  [ ] Build finishes with: BUILD SUCCESS
+  [ ] The Swing window opens
+  [ ] [DB_NAME] and its tables exist in Workbench
+
+  RESETTING THE DATABASE DURING DEVELOPMENT
+  Because the auto-create only builds what is missing, a changed table
+  definition will not apply to an existing database. While developing, you
+  can start fresh (WARNING: this deletes all data in that database):
+
+       DROP DATABASE [DB_NAME];
+
+  Then start the app again and it recreates everything. Later in your career
+  you will meet "database migration" tools (Flyway, Liquibase) that solve
+  this problem properly for real systems.
+
+
+
+
+------------------------------------------------------------------------------
+9. OPTIONAL: BUILD A RUNNABLE JAR
+------------------------------------------------------------------------------
+A plain Maven JAR does NOT contain the MySQL driver, so "java -jar" fails
+with "No suitable driver" or NoClassDefFoundError. Bundle everything into one
+JAR with the Maven Shade plugin. Add this inside <build><plugins> in pom.xml:
+
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-shade-plugin</artifactId>
+           <version>3.5.1</version>   <!-- or a newer 3.x -->
+           <executions>
+               <execution>
+                   <phase>package</phase>
+                   <goals><goal>shade</goal></goals>
+                   <configuration>
+                       <transformers>
+                           <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                               <mainClass>[MAIN_CLASS]</mainClass>
+                           </transformer>
+                           <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                       </transformers>
+                   </configuration>
+               </execution>
+           </executions>
+       </plugin>
+
+Then:
+  1. Clean and Build (or  mvn clean package).
+  2. Copy target/[PROJECT_NAME]-[VERSION].jar and config.properties into the
+     SAME folder.
+  3. From that folder run:  java -jar [PROJECT_NAME]-[VERSION].jar
+
+
+
+
+------------------------------------------------------------------------------
+10. MIGRATING FROM XAMPP
+------------------------------------------------------------------------------
+Key facts
+  - XAMPP's "MySQL" is really MariaDB. It usually runs as root with an EMPTY
+    password. The new setup uses real MySQL and a password.
+  - Both servers want port 3306. If both run at once, one fails to start or
+    your app connects to the wrong one.
+ 
+Steps
+  1. Stop MySQL in the XAMPP Control Panel, and untick any auto-start.
+  2. Do you need your old data?
+       NO  -> skip to step 4; the app creates a fresh, empty database.
+       YES -> export it first (while XAMPP still runs):
+              phpMyAdmin > select your database > Export > Custom > SQL.
+  3. Import into MySQL 80 BEFORE the first run:
+       Workbench > Server > Data Import > "Import from Self-Contained File"
+       > pick the .sql file > target schema [DB_NAME] > Start.
+     Tables that already exist are left untouched by the app's
+     CREATE TABLE IF NOT EXISTS, so make sure the imported structure matches
+     what the code expects.
+     If the import fails with "Unknown collation", your dump uses a
+     MariaDB-only collation such as utf8mb4_uca1400_ai_ci. Open the .sql file
+     in a text editor and Find & Replace it with utf8mb4_unicode_ci.
+  4. Update src/main/resources/config.properties:
+       - db.password : the new MySQL password (XAMPP's was empty)
+       - db.url      : jdbc:mariadb://...  ->  jdbc:mysql://localhost:3306/
+       - db.driver   : (MariaDB driver)    ->  com.mysql.cj.jdbc.Driver
+     and replace the MariaDB driver dependency in pom.xml with
+     mysql-connector-j (section 5 step 5).
+
+
+
+
+------------------------------------------------------------------------------
+12. BEFORE YOU PUSH TO GITHUB
+------------------------------------------------------------------------------
+  - Make sure .gitignore contains at least:
+        target/
+        nbproject/private/
+        config.properties
+        *.log
+  - Commit config.properties.example (fake values) so others know the format.
+  - If config.properties is already tracked by Git, stop tracking it:
+        git rm --cached config.properties
+    then commit.
+  - If you ever committed a real password, change that password immediately.
+    Deleting the file in a later commit does NOT remove it from Git history.
+
+
+
+
+------------------------------------------------------------------------------
+13. QUICK-START CHEAT SHEET
+------------------------------------------------------------------------------
+  1. Install JDK 21, NetBeans 19, MySQL Server + Workbench
+  2. (Option B) In Workbench as root: CREATE USER + GRANT on [DB_NAME]
+  3. git clone [REPO_URL]  ->  open the project in NetBeans
+  4. Copy config.properties.example to config.properties and fill it in
+  5. Clean and Build  ->  Run (F6): the app creates the database and tables
+  6. Refresh SCHEMAS in Workbench to see [DB_NAME]
 
 
 
@@ -38,7 +422,9 @@ TO RUN APPLICATION AFTER CLEAN & BUILD
 *NAVIGATE TO SRC/ MAIN/ JAVA/ COM/ MSBANK/ FRONTEND/ CreateAccount.java
 
 
-
+==============================================================================
+  END OF SETUP GUIDE
+==============================================================================
 
 FOR MORE INFO:
 MS SITHOLE | mcacisisithole@gmail.com
